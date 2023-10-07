@@ -1,9 +1,10 @@
 import java.util.Random;
+package queue/src/queue/LinkedQueue;
 
-class shuffle {
+public class shuffle {
     static Random random = new Random();
 
-    static void shuffleCard(card cards[]) {
+    static void shuffleCard() {
         for (int i = 0; i < cards.length; i++) {
             int r = random.nextInt(cards.length);
             // swap(cards[i], cards);
@@ -13,7 +14,20 @@ class shuffle {
         }
     }
 
-    static void printCards(card cards[]) {
+    static void dealCard()
+    {
+        for(int i=0;i<4;i++)
+        {
+            players[i]=new LinkedQueue();
+        }
+        for(int i=0;i<52;i++)
+        {
+            players[i%4].append(cards[i]);
+        }
+    }
+
+    static void printCards() 
+    {
         for (int i = 0; i < cards.length; i++) {
             System.out.printf("%s%d\t", suits.suits[cards[i].suit], cards[i].number + 1);
             if (i % 13 == 12) {
@@ -31,15 +45,23 @@ class shuffle {
         }
 
         System.out.println("===========before shuffled=========");
-        printCards(cards);
+        printCards();
 
-        shuffleCard(cards);
+        shuffleCard();
 
         System.out.println("===========after shuffled=========");
-        printCards(cards);
+        printCards();
+
+        System.out.println("===========after shuffled=========");
+        for(int i=0;i<4;i++)
+        {
+            players[i].forEach(System.out.print());
+            System.out.println();
+        }
     }
 
     static card cards[] = new card[52];
+    static LinkedQueue<card> players[] = new LinkedQueue[4];
 }
 
 class suits {
